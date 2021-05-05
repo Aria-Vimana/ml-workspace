@@ -2,7 +2,7 @@ ARG ARG_WORKSPACE_BASE_IMAGE="mltooling/ml-workspace:latest"
 # Build from full flavor of workspace with same version
 FROM $ARG_WORKSPACE_BASE_IMAGE
 
-ARG ARG_WORKSPACE_FLAVOR="gpu-11.3"
+ARG ARG_WORKSPACE_FLAVOR="GPU-ML Cuda-11.1"
 ENV WORKSPACE_FLAVOR=$ARG_WORKSPACE_FLAVOR
 
 USER root
