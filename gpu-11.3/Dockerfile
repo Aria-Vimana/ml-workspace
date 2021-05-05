@@ -58,9 +58,9 @@ RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86
 #     rm -rf /tmp/* && \
 #     rm -rf /var/lib/apt/lists/*
 
-# Required for nvidia-docker v1
-RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
-    echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
+# # Required for nvidia-docker v1
+# RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
+#     echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
 
 ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
@@ -77,21 +77,21 @@ ENV NVIDIA_REQUIRE_CUDA "cuda>=11.1 brand=tesla,driver>=396,driver<397 brand=tes
 
 ENV NCCL_VERSION 2.7.8
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        cuda-libraries-$CUDA_PKG_VERSION \
-        cuda-npp-$CUDA_PKG_VERSION \
-        cuda-nvtx-$CUDA_PKG_VERSION \
-        libcublas10=10.2.1.243-1 \
-        libnccl2=$NCCL_VERSION-1+cuda10.1 && \
-    apt-mark hold libnccl2 && \
-    # Cleanup - cannot use cleanup script here, otherwise too much is removed
-    apt-get clean && \
-    rm -rf $HOME/.cache/* && \
-    rm -rf /tmp/* && \
-    rm -rf /var/lib/apt/lists/*
+# RUN apt-get update && apt-get install -y --no-install-recommends \
+#         cuda-libraries-$CUDA_PKG_VERSION \
+#         cuda-npp-$CUDA_PKG_VERSION \
+#         cuda-nvtx-$CUDA_PKG_VERSION \
+#         libcublas10=10.2.1.243-1 \
+#         libnccl2=$NCCL_VERSION-1+cuda10.1 && \
+#     apt-mark hold libnccl2 && \
+#     # Cleanup - cannot use cleanup script here, otherwise too much is removed
+#     apt-get clean && \
+#     rm -rf $HOME/.cache/* && \
+#     rm -rf /tmp/* && \
+#     rm -rf /var/lib/apt/lists/*
 
-# apt from auto upgrading the cublas package. See https://gitlab.com/nvidia/container-images/cuda/-/issues/88
-RUN apt-mark hold libcublas10
+# # apt from auto upgrading the cublas package. See https://gitlab.com/nvidia/container-images/cuda/-/issues/88
+# RUN apt-mark hold libcublas10
 
 ### END CUDA RUNTIME ###
 
