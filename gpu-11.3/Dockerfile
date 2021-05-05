@@ -153,53 +153,53 @@ ENV NCCL_VERSION 2.7.8
 
 ### GPU DATA SCIENCE LIBRARIES ###
 
-# RUN \
-#     apt-get update && \
-#     apt-get install -y libomp-dev libopenblas-base && \
-#     # Not needed? Install cuda-toolkit (e.g. for pytorch: https://pytorch.org/): https://anaconda.org/anaconda/cudatoolkit
-#     conda install -y cudatoolkit=11.1 -c pytorch && \
-#     # Install cupy: https://cupy.chainer.org/
-#     pip install --no-cache-dir cupy-cuda101 && \
-#     # Install pycuda: https://pypi.org/project/pycuda
-#     pip install --no-cache-dir pycuda && \
-#     # Install gpu utils libs
-#     pip install --no-cache-dir gpustat py3nvml gputil && \
-#     # Install scikit-cuda: https://scikit-cuda.readthedocs.io/en/latest/install.html
-#     pip install --no-cache-dir scikit-cuda && \
-#     # Install tensorflow gpu
-#     pip uninstall -y tensorflow tensorflow-cpu intel-tensorflow && \
-#     # TODO: tensorflow 2.3.1 installs tenorboard 2.4.0 with problems, use 2.3.0
-#     pip install --no-cache-dir tensorflow-gpu==2.3.0 && \
-#     # Install ONNX GPU Runtime
-#     # TODO: 1.4.x is latest with cuda 10.1 support
-#     pip uninstall -y onnxruntime && \
-#     pip install --no-cache-dir onnxruntime-gpu==1.4.0 && \
-#     # Install pytorch gpu
-#     # uninstall cpu only packages via conda
-#     conda remove --force -y pytorch cpuonly && \
-#     # https://pytorch.org/get-started/locally/
-#     conda install -y pytorch -c pytorch && \
-#     # Install faiss gpu
-#     conda remove --force -y faiss-cpu && \
-#     conda install -y faiss-gpu -c pytorch && \
-#     # Update mxnet to gpu edition
-#     pip uninstall -y mxnet-mkl && \
-#     pip install --no-cache-dir mxnet-cu101mkl==1.6.0.post0 && \
-#     # install jax: https://github.com/google/jax#pip-installation
-#     pip install --upgrade jax jaxlib==0.1.57+cuda101 -f https://storage.googleapis.com/jax-releases/jax_releases.html  && \
-#     # Install pygpu - Required for theano: http://deeplearning.net/software/libgpuarray/
-#     conda install -y pygpu && \
-#     # Install lightgbm
-#     pip uninstall -y lightgbm && \
-#     pip install lightgbm --install-option=--gpu --install-option="--opencl-include-dir=/usr/local/cuda/include/" --install-option="--opencl-library=/usr/local/cuda/lib64/libOpenCL.so"  && \
-#     # nvidia python ml lib
-#     pip install --upgrade --force-reinstall nvidia-ml-py3 && \
-#     # SpeedTorch: https://github.com/Santosh-Gupta/SpeedTorch
-#     pip install --no-cache-dir SpeedTorch && \
-#     # Ipyexperiments - fix memory leaks
-#     pip install --no-cache-dir ipyexperiments && \
-#     # Cleanup
-#     clean-layer.sh
+RUN \
+    apt-get update && \
+    apt-get install -y libomp-dev libopenblas-base && \
+    # Not needed? Install cuda-toolkit (e.g. for pytorch: https://pytorch.org/): https://anaconda.org/anaconda/cudatoolkit
+    conda install -y cudatoolkit=11.1 -c pytorch && \
+    # Install cupy: https://cupy.chainer.org/
+    # pip install --no-cache-dir cupy-cuda101 && \
+    # Install pycuda: https://pypi.org/project/pycuda
+    pip install --no-cache-dir pycuda && \
+    # Install gpu utils libs
+    pip install --no-cache-dir gpustat py3nvml gputil && \
+    # Install scikit-cuda: https://scikit-cuda.readthedocs.io/en/latest/install.html
+    pip install --no-cache-dir scikit-cuda && \
+    # Install tensorflow gpu
+    pip uninstall -y tensorflow tensorflow-cpu intel-tensorflow && \
+    # TODO: tensorflow 2.3.1 installs tenorboard 2.4.0 with problems, use 2.3.0
+    pip install --no-cache-dir tensorflow-gpu==2.3.0 && \
+    # Install ONNX GPU Runtime
+    # TODO: 1.4.x is latest with cuda 10.1 support
+    pip uninstall -y onnxruntime && \
+    pip install --no-cache-dir onnxruntime-gpu==1.4.0 && \
+    # Install pytorch gpu
+    # uninstall cpu only packages via conda
+    conda remove --force -y pytorch cpuonly && \
+    # https://pytorch.org/get-started/locally/
+    conda install -y pytorch -c pytorch && \
+    # Install faiss gpu
+    conda remove --force -y faiss-cpu && \
+    conda install -y faiss-gpu -c pytorch && \
+    # Update mxnet to gpu edition
+    pip uninstall -y mxnet-mkl && \
+    # pip install --no-cache-dir mxnet-cu101mkl==1.6.0.post0 && \
+    # install jax: https://github.com/google/jax#pip-installation
+    # pip install --upgrade jax jaxlib==0.1.57+cuda101 -f https://storage.googleapis.com/jax-releases/jax_releases.html  && \
+    # Install pygpu - Required for theano: http://deeplearning.net/software/libgpuarray/
+    conda install -y pygpu && \
+    # Install lightgbm
+    pip uninstall -y lightgbm && \
+    pip install lightgbm --install-option=--gpu --install-option="--opencl-include-dir=/usr/local/cuda/include/" --install-option="--opencl-library=/usr/local/cuda/lib64/libOpenCL.so"  && \
+    # nvidia python ml lib
+    pip install --upgrade --force-reinstall nvidia-ml-py3 && \
+    # SpeedTorch: https://github.com/Santosh-Gupta/SpeedTorch
+    pip install --no-cache-dir SpeedTorch && \
+    # Ipyexperiments - fix memory leaks
+    pip install --no-cache-dir ipyexperiments && \
+    # Cleanup
+    clean-layer.sh
 
 # TODO: nvdashboard does not work with relative paths
 # RUN \
