@@ -157,11 +157,12 @@ RUN \
     apt-get update && \
     apt-get install -y libomp-dev libopenblas-base && \
     # Not needed? Install cuda-toolkit (e.g. for pytorch: https://pytorch.org/): https://anaconda.org/anaconda/cudatoolkit
-    conda install -y cudatoolkit=11.1 -c pytorch && \
+    conda install -y cudatoolkit=11.1 -c pytorch
     # Install cupy: https://cupy.chainer.org/
     # pip install --no-cache-dir cupy-cuda101 && \
     # Install pycuda: https://pypi.org/project/pycuda
-    pip install --no-cache-dir pycuda && \
+
+RUN pip install --no-cache-dir pycuda && \
     # Install gpu utils libs
     pip install --no-cache-dir gpustat py3nvml gputil && \
     # Install scikit-cuda: https://scikit-cuda.readthedocs.io/en/latest/install.html
@@ -173,10 +174,11 @@ RUN \
     # Install ONNX GPU Runtime
     # TODO: 1.4.x is latest with cuda 10.1 support
     pip uninstall -y onnxruntime && \
-    pip install --no-cache-dir onnxruntime-gpu && \
+    pip install --no-cache-dir onnxruntime-gpu
+
     # Install pytorch gpu
     # uninstall cpu only packages via conda
-    conda remove --force -y pytorch cpuonly && \
+RUN conda remove --force -y pytorch cpuonly && \
     # https://pytorch.org/get-started/locally/
     conda install -y pytorch -c pytorch && \
     # Install faiss gpu
@@ -251,6 +253,15 @@ ENV WORKSPACE_VERSION=$ARG_WORKSPACE_VERSION
 # Overwrite & add Labels
 ARG ARG_BUILD_DATE="unknown"
 ARG ARG_VCS_REF="unknown"
+
+
+RUN curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | \
+    sudo apt-key add -distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+RUN curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list | \
+    sudo tee /etc/apt/sources.list.d/nvidia-container-runtime.list
+RUN sudo apt-get update
+
+
 
 LABEL \
     "workspace.version"=$WORKSPACE_VERSION \
