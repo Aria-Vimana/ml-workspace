@@ -75,7 +75,7 @@ ENV NVIDIA_REQUIRE_CUDA "cuda>=11.1 brand=tesla,driver>=396,driver<397 brand=tes
 ### CUDA RUNTIME ###
 # https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/10.1/ubuntu18.04-x86_64/runtime/Dockerfile
 
-ENV NCCL_VERSION 2.7.8
+# ENV NCCL_VERSION 2.7.8
 
 # RUN apt-get update && apt-get install -y --no-install-recommends \
 #         cuda-libraries-$CUDA_PKG_VERSION \
@@ -169,11 +169,11 @@ RUN \
     # Install tensorflow gpu
     pip uninstall -y tensorflow tensorflow-cpu intel-tensorflow && \
     # TODO: tensorflow 2.3.1 installs tenorboard 2.4.0 with problems, use 2.3.0
-    pip install --no-cache-dir tensorflow-gpu==2.3.0 && \
+    pip install --no-cache-dir tensorflow-gpu && \
     # Install ONNX GPU Runtime
     # TODO: 1.4.x is latest with cuda 10.1 support
     pip uninstall -y onnxruntime && \
-    pip install --no-cache-dir onnxruntime-gpu==1.4.0 && \
+    pip install --no-cache-dir onnxruntime-gpu && \
     # Install pytorch gpu
     # uninstall cpu only packages via conda
     conda remove --force -y pytorch cpuonly && \
